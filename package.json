@@ -3,21 +3,24 @@
     "version": "1.0.0",
     "scripts": {
         "build": "npm run build:go && npm run build:web",
-        "build:go": "cd go && go build -o ../dist/go/main main.go && cd ..",
+        "build:go": "go build -o ../dist/go/main main.go",
         "build:web": "vite build",
         "sanitize": "npm run sanitize:go && npm run sanitize:ts && npm run sanitize:py",
-        "sanitize:go": "cd go && golangci-lint run --fix && golangci-lint fmt && cd ..",
+        "sanitize:go": "golangci-lint run --fix && golangci-lint fmt",
         "sanitize:ts": "deno lint --fix  && deno fmt && tsc --noEmit",
-        "sanitize:py": "ruff check --fix && ruff format && pyrefly check"
+        "sanitize:py": "ruff check --fix && ruff format && pyrefly check",
+        "watch": "tsx go2ts.ts"
     },
     "dependencies": {
         "@ayonli/jsext": "^1.9.0",
         "@vitejs/plugin-react": "^5.1.0",
+        "chokidar": "^4.0.3",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "tslib": "^2.8.1"
     },
     "devDependencies": {
+        "@std/yaml": "npm:@jsr/std__yaml@^1.0.10",
         "@types/node": "^24.2.0",
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",

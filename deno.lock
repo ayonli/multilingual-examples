@@ -2,10 +2,12 @@
   "version": "5",
   "specifiers": {
     "npm:@ayonli/jsext@^1.9.0": "1.9.0",
+    "npm:@jsr/std__yaml@^1.0.10": "1.0.10",
     "npm:@types/node@^24.2.0": "24.9.2",
     "npm:@types/react-dom@^19.2.2": "19.2.2_@types+react@19.2.2",
     "npm:@types/react@^19.2.2": "19.2.2",
     "npm:@vitejs/plugin-react@^5.1.0": "5.1.0_vite@7.1.12__@types+node@24.9.2__tsx@4.20.6__picomatch@4.0.3_@babel+core@7.28.5_@types+node@24.9.2_tsx@4.20.6",
+    "npm:chokidar@^4.0.3": "4.0.3",
     "npm:react-dom@^19.2.0": "19.2.0_react@19.2.0",
     "npm:react@^19.2.0": "19.2.0",
     "npm:tslib@^2.8.1": "2.8.1",
@@ -318,6 +320,10 @@
         "@jridgewell/sourcemap-codec"
       ]
     },
+    "@jsr/std__yaml@1.0.10": {
+      "integrity": "sha512-1WIM023Kvi48pvPE3UO5YcieambLgywUooLhAkkaObIcMB77F/YP2ILdl+vNfik+vElkl9znmuST9AZo8mbCpA==",
+      "tarball": "https://npm.jsr.io/~/11/@jsr/std__yaml/1.0.10.tgz"
+    },
     "@rolldown/pluginutils@1.0.0-beta.43": {
       "integrity": "sha512-5Uxg7fQUCmfhax7FJke2+8B6cqgeUJUD9o2uXIKXhD+mG0mL6NObmVoi9wXEU1tY89mZKgAYA6fTbftx3q2ZPQ=="
     },
@@ -511,6 +517,12 @@
     "caniuse-lite@1.0.30001752": {
       "integrity": "sha512-vKUk7beoukxE47P5gcVNKkDRzXdVofotshHwfR9vmpeFKxmI5PBpgOMC18LUJUA/DvJ70Y7RveasIBraqsyO/g=="
     },
+    "chokidar@4.0.3": {
+      "integrity": "sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==",
+      "dependencies": [
+        "readdirp"
+      ]
+    },
     "convert-source-map@2.0.0": {
       "integrity": "sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg=="
     },
@@ -647,6 +659,9 @@
     },
     "react@19.2.0": {
       "integrity": "sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ=="
+    },
+    "readdirp@4.1.2": {
+      "integrity": "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="
     },
     "resolve-pkg-maps@1.0.0": {
       "integrity": "sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw=="
@@ -794,10 +809,12 @@
     "packageJson": {
       "dependencies": [
         "npm:@ayonli/jsext@^1.9.0",
+        "npm:@jsr/std__yaml@^1.0.10",
         "npm:@types/node@^24.2.0",
         "npm:@types/react-dom@^19.2.2",
         "npm:@types/react@^19.2.2",
         "npm:@vitejs/plugin-react@^5.1.0",
+        "npm:chokidar@^4.0.3",
         "npm:react-dom@^19.2.0",
         "npm:react@^19.2.0",
         "npm:tslib@^2.8.1",

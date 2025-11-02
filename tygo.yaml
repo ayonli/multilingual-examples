@@ -1,0 +1,2 @@
+packages:
+    - path: "github.com/ayonli/multilingual-examples/go/models"
