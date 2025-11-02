@@ -5,9 +5,10 @@
         "build": "npm run build:go && npm run build:web",
         "build:go": "cd go && go build -o ../dist/go/main main.go && cd ..",
         "build:web": "vite build",
-        "sanitize": "npm run sanitize:go && npm run sanitize:ts",
-        "sanitize:go": "cd go && golangci-lint fmt && golangci-lint run --fix && cd ..",
-        "sanitize:ts": "deno fmt && deno lint --fix && tsc --noEmit"
+        "sanitize": "npm run sanitize:go && npm run sanitize:ts && npm run sanitize:py",
+        "sanitize:go": "cd go && golangci-lint run --fix && golangci-lint fmt && cd ..",
+        "sanitize:ts": "deno lint --fix  && deno fmt && tsc --noEmit",
+        "sanitize:py": "ruff check --fix && ruff format && pyrefly check"
     },
     "dependencies": {
         "@ayonli/jsext": "^1.9.0",

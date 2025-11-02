@@ -93,5 +93,8 @@
     },
     "[scss]": {
         "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff"
     }
 }
