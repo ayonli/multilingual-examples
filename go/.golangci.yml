@@ -1,0 +1,205 @@
+version: "2"
+formatters:
+    enable:
+        - gofmt
+        - goimports
+        - golines
+    settings:
+        gofmt:
+            simplify: false
+            rewrite-rules:
+                - pattern: "interface{}"
+                  replacement: "any"
+                - pattern: "a[b:len(a)]"
+                  replacement: "a[b:]"
+        golines:
+            max-len: 100
+            tab-len: 4
+linters:
+    default: "standard"
+    enable:
+        - asasalint
+        - asciicheck
+        - bidichk
+        - bodyclose
+        - canonicalheader
+        - contextcheck
+        - copyloopvar
+        - decorder
+        - dogsled
+        - dupl
+        - durationcheck
+        - embeddedstructfieldcheck
+        - err113
+        - errcheck
+        - errchkjson
+        - errname
+        - errorlint
+        - exhaustive
+        - exptostd
+        - fatcontext
+        - funcorder
+        - gocheckcompilerdirectives
+        - gocritic
+        - govet
+        - inamedparam
+        - ineffassign
+        - interfacebloat
+        - intrange
+        - iotamixing
+        - modernize
+        - musttag
+        - nestif
+        - nilerr
+        - nilnil
+        - noinlineerr
+        - nolintlint
+        - nonamedreturns
+        - perfsprint
+        - prealloc
+        - predeclared
+        - reassign
+        - recvcheck
+        - revive
+        - staticcheck
+        - unparam
+        - unused
+        - usestdlibvars
+        - whitespace
+        - wsl_v5
+    settings:
+        embeddedstructfieldcheck:
+            forbid-mutex: true
+        errcheck:
+            check-type-assertions: true
+            check-blank: true
+            disable-default-exclusions: false
+            verbose: true
+        exhaustive:
+            check:
+                - switch
+                - map
+        fatcontext:
+            check-struct-pointers: true
+        funcorder:
+            struct-method: false
+        interfacebloat:
+            max: 5
+        nestif:
+            min-complexity: 4
+        nolintlint:
+            require-explanation: true
+            require-specific: true
+        nonamedreturns:
+            report-error-in-defer: true
+        recvcheck:
+            disable-builtin: true
+        revive:
+            enable-all-rules: false
+            severity: "error"
+            rules:
+                - name: argument-limit
+                  arguments:
+                      - 4
+                - name: atomic
+                - name: bare-return
+                - name: blank-imports
+                  severity: "warning"
+                - name: cognitive-complexity
+                  arguments:
+                      - 15
+                - name: comment-spacings
+                  severity: "warning"
+                - name: confusing-naming
+                - name: confusing-results
+                - name: constant-logical-expr
+                - name: context-as-argument
+                  arguments:
+                      - allowTypesBefore: "testing.T,testing.B,testing.M"
+                - name: context-keys-type
+                - name: datarace
+                - name: deep-exit
+                - name: defer
+                - name: dot-imports
+                - name: duplicated-imports
+                - name: early-return
+                  arguments:
+                      - "preserveScope"
+                      - "allowJump"
+                - name: empty-block
+                - name: enforce-map-style
+                  arguments:
+                      - "literal"
+                  severity: "warning"
+                - name: enforce-repeated-arg-type-style
+                  arguments:
+                      - "full"
+                - name: enforce-switch-style
+                - name: error-return
+                - name: error-strings
+                - name: function-result-limit
+                  arguments:
+                      - 3
+                - name: identical-branches
+                - name: identical-ifelseif-branches
+                - name: identical-ifelseif-conditions
+                - name: identical-switch-branches
+                - name: identical-switch-conditions
+                - name: import-alias-naming
+                - name: import-shadowing
+                - name: increment-decrement
+                  severity: "warning"
+                - name: indent-error-flow
+                  arguments:
+                      - "preserveScope"
+                - name: line-length-limit
+                  arguments:
+                      - 100
+                  severity: "warning"
+                - name: max-control-nesting
+                  arguments:
+                      - 4
+                - name: max-public-structs
+                  arguments:
+                      - 10
+                  severity: "warning"
+                - name: modifies-parameter
+                  severity: "warning"
+                - name: modifies-value-receiver
+                - name: nested-structs
+                - name: package-directory-mismatch
+                - name: range-val-address
+                - name: range-val-in-closure
+                - name: range
+                  severity: "warning"
+                - name: redefines-builtin-id
+                - name: redundant-build-tag
+                - name: redundant-import-alias
+                - name: redundant-test-main-exit
+                - name: string-of-int
+                - name: superfluous-else
+                  arguments:
+                      - "preserveScope"
+                - name: time-date
+                - name: time-equal
+                - name: unchecked-type-assertion
+                - name: unconditional-recursion
+                - name: unexported-return
+                - name: unhandled-error
+                - name: unnecessary-stmt
+                - name: unreachable-code
+                - name: unused-parameter
+                  arguments:
+                      - allow-regex: "^_"
+                - name: unused-receiver
+                  arguments:
+                      - allow-regex: "^_"
+                - name: use-waitgroup-go
+                - name: useless-break
+                - name: useless-fallthrough
+                - name: var-naming
+                  arguments:
+                      - ["ID"] # AllowList
+                      - ["VM"] # DenyList
+                      - - upper-case-const: true
+                - name: waitgroup-by-value

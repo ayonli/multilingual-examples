@@ -1,0 +1,97 @@
+{
+    "editor.formatOnSave": true,
+    "go.lintTool": "golangci-lint",
+    "go.formatTool": "custom",
+    "go.alternateTools": {
+        "customFormatter": "golangci-lint"
+    },
+    "go.formatFlags": [
+        "fmt",
+        "--stdin"
+    ],
+    "customLocalFormatters.formatters": [
+        {
+            "command": "deno fmt -",
+            "languages": [
+                "typescript",
+                "javascript"
+            ]
+        },
+        {
+            "command": "deno fmt --ext=tsx -",
+            "languages": [
+                "typescriptreact",
+                "javascriptreact"
+            ]
+        },
+        {
+            "command": "deno fmt --ext=jsonc -",
+            "languages": [
+                "jsonc",
+                "json"
+            ]
+        },
+        {
+            "command": "deno fmt --ext=yaml -",
+            "languages": [
+                "yaml",
+                "yml"
+            ]
+        },
+        {
+            "command": "deno fmt --ext=md -",
+            "languages": [
+                "markdown"
+            ]
+        },
+        {
+            "command": "deno fmt --ext=html -",
+            "languages": [
+                "html"
+            ]
+        },
+        {
+            "command": "deno fmt --ext=scss -",
+            "languages": [
+                "scss",
+                "css"
+            ]
+        },
+        {
+            "command": "deno fmt --ext=less -",
+            "languages": [
+                "less"
+            ]
+        }
+    ],
+    "[javascript]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+    }
+}
