@@ -3,34 +3,42 @@
 **Variables** 
 
 - Use `const` and `let` when possible and prefer const, never use `var`
-- Try to use shorter variable names for small scopes, e.g., loop indices,
-  conditional or loop blocks, etc.
+- Unused parameters should be prefixed with `_` to indicate intentional omission
+  but still keep the parameter for function signature compatibility
+- Prefix the element name with `_` when destructuring unused tuple elements
+  instead of leaving a blank slot
+- Use `_0`, `_1`, etc. for unused prefixes in array destructuring when multiple
+  consecutive elements are unused, e.g., `const [first, _1, _2, fourth] = myArray;`
 - When using Drizzle ORM, define table fields with snake_case to match database
   naming conventions
 
 **Functions**
 
-- Top level functions must be declared with `function` keyword
-- Functions should have explicit return types
-- Function should not have more than 4 parameters, consider using an options
+- Top level functions must be declared with `function` keyword; no arrow functions
+  for top level functions, no function declarations inside other functions
+- Functions should have explicit return types except for those that are defined and
+  used in another function
+- Functions should not have more than 4 parameters, consider using an options
   object if more are needed
 - Function signatures should not take object literal types, always declare proper
   interfaces or types for object parameters, and export them if the function is
   exported; these type declarations should be colocated with the function
-- Keep function bodies small and focused, consider breaking down large functions
-  into smaller helper functions, but avoid over-modularization and keep related
-  logic together, also keep helper functions close to their callers
 
 **Types**
 
 - Prefer using `interface` for object shapes, use `type` for unions, intersections,
   and utility types
 - Avoid using `any` type, prefer more specific types or `unknown` if necessary
-- Prefer type inference over explicit types when obvious
+- Use type assertions (`as`) sparingly, only when you have more type information
+  than TypeScript
+- Use `satisfies` operator to validate types while preserving literal types
+- Prefer type guards and narrowing over type assertions
+- Prefer type inference over explicit types when obvious, but not for functions
+  and module exports
 - Prefer using **zod** to define DTOs and infer types from zod schemas, the
-  schema and inferred type should be the same name and capitalized; the name
-  shall not have suffixes like `Schema`, `Model`, `Type` or `Dto`, just a pure
-  type name, e.g., `User`, `CreateUserData`, etc.
+  schema should share the same name as the inferred type and should be capitalized;
+  the name shall not have suffixes like `Schema`, `Model`, `Type` or `Dto`, just
+  a pure type name, e.g., `User`, `CreateUserData`, etc.
 - Prefer using generic types for function parameters instead of super-classes or
   interfaces, the generic type should have bound constraints when necessary
 - Define extended error classes instead of using plain `Error` for better error
@@ -49,12 +57,6 @@
 - Try to group imports by built-in modules, external modules, internal modules,
   and relative modules, with a blank line in between and order them
   alphabetically in each group
-- Construct modules with top level stateless functions, avoid classes, especially
-  singletons when possible
-- Group related functions into modules, related modules into a bigger module,
-  form a domain-driven structure via modules
-- Construct business logic like we're writing libraries, try to avoid framework
-  or environment lock-in
 
 **Libraries**
 
@@ -73,12 +75,64 @@
 - Prefer using a IIFE (Immediately Invoked Function Expression) for initializing
   variables that require complex logic and still use `const`
 - `Promise`s must be `await`ed or `.catch`ed to prevent unhandled rejections
+- Use `.catch` for promises that could provide fallback values
 - Don't rethrow errors without wrapping or logging them or have some sort of
   handling logic
+- When rethrowing errors, wrap them both in the `message` and the `cause` property
+  to preserve the original error context
 - Don't throw or return in `finally` blocks
 - Use `AbortSignal` to handle cancellations when possible, design APIs to accept
   `AbortSignal` when applicable
 - Check exhaustiveness in switch and conditional statements when possible
+
+**Safety**
+
+- Avoid using deprecated or discouraged language features, APIs and libraries
+- Prefer using `Array.prototype.at` for safe array element access, only use
+  direct indexing when the length is checked beforehand
+- Prefer regular expression literals over `new RegExp` for both safety, simplicity
+  and performance
+- Prefer using optional chaining and nullish coalescing operators for safer property
+  access and default values
+- React component props should be wrapped with `Readonly` to prevent accidental
+  mutations
+- Use `strict` mode in TypeScript configuration
+- Always try to write safe and secure code, learn and practice secure coding
+  from Rust and other memory-safe languages
+
+**Simplicity**
+
+- Naming conventions:
+  - PascalCase for types
+  - camelCase for functions, except for React components which should be PascalCase
+  - camelCase for variables, except for Drizzle ORM table fields which should be
+    snake_case, and keep snake_case if those fields are destructured from
+    database rows
+  - UPPER_SNAKE_CASE for constant values, IMPORTANT: constant value, not just any
+    `const` variables
+  - kebab-case for file names, except for React component files which should be
+    PascalCase to match the exported component name
+- Try to use shorter identifier names, but still meaningful and descriptive
+- Don't write too many comments, let the code speak for itself, only add comments
+  for complex logic, important decisions, and public APIs
+
+**Abstractions**
+
+- Extract repeated code into reusable functions or modules when possible
+- Avoid over-engineering and premature abstractions, keep things simple and
+  straightforward
+- Prefer composition over inheritance, favor higher-order functions and
+  dependency injection over class hierarchies
+- Prefer small and focused functions and modules over large monolithic ones,
+  consider breaking down large functions into smaller and testable helpers, but
+  avoid over-modularization and keep related logic together, also keep helper
+  functions close to their callers
+- Avoid deep nesting of functions and modules, keep the structure flat and
+  modular
+- Construct modules with top level stateless functions, avoid classes, especially
+  singletons when possible
+- Construct business logic like we're writing libraries, try to avoid framework
+  or environment lock-in
 
 **Modernization**
 
@@ -88,17 +142,6 @@
 - Prefer using `Uint8Array` over Node.js `Buffer` for binary data
 - If targeting Node.js v22+ or Deno, prefer iterator helper methods over array
   counterparts (e.g., `map`, `filter`, `reduce`, etc.)
-
-**Safety**
-
-- Avoid using deprecated or discouraged language features, APIs and libraries
-- Prefer using `Array.prototype.at` for safe array indexing
-- Prefer regular expression literals over `new RegExp` for both safety and
-  performance
-- Prefer using optional chaining and nullish coalescing operators for safer property
-  access and default values
-- Always try to write safe and secure code, learn and practice secure coding
-  from Rust and other memory-safe languages
 
 **Workflows**
 
@@ -116,4 +159,5 @@
   - `deno lint --fix <file>`
   - `deno fmt <file>`
   - `tsc --noEmit`
+- Extract rapidly used commands into `package.json` scripts for future reuse
 - Write meaningful but brief commit messages that describe the changes made
