@@ -9,7 +9,7 @@
         "sanitize:go": "golangci-lint run --fix && golangci-lint fmt",
         "sanitize:ts": "deno lint --fix  && deno fmt && tsc --noEmit",
         "sanitize:py": "ruff check --fix && ruff format && pyrefly check",
-        "watch": "tsx go2ts.ts"
+        "go2ts": "tsx go2ts.ts"
     },
     "dependencies": {
         "@ayonli/jsext": "^1.9.0",

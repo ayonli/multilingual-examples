@@ -9,7 +9,8 @@ import {
 import { readFileAsText } from "@ayonli/jsext/fs"
 import { parse } from "@std/yaml"
 import { FSWatcher, watch } from "chokidar"
-import { dirname } from "@ayonli/jsext/path"
+import { dirname, extname, resolve } from "@ayonli/jsext/path"
+import process from "node:process"
 
 const getGoModName: () => Promise<string> = once(async () => {
     const content = await readFileAsText("go.mod")
@@ -47,6 +48,26 @@ async function go2ts(path: string): Promise<void> {
     }
 }
 
+async function generateForFile(filePath: string): Promise<void> {
+    const absPath = resolve(filePath)
+    
+    if (extname(absPath) !== ".go") {
+        console.error("Error: File must have .go extension")
+        process.exit(1)
+    }
+
+    console.log(`Generating TypeScript definitions for: ${absPath}`)
+
+    const { code, stderr } = await run("tygo", ["generate"])
+    if (code) {
+        console.error("Error generating TypeScript definitions from Go models:", stderr)
+        process.exit(1)
+    } else {
+        const dest = dirname(absPath) + "/index.ts"
+        console.log("Successfully generated TypeScript to:", dest)
+    }
+}
+
 let watcher: FSWatcher | undefined
 
 async function watchGoModels(): Promise<void> {
@@ -70,8 +91,27 @@ async function watchGoModels(): Promise<void> {
         })
 }
 
-watch("tygo.yaml", {
-    persistent: true,
-    awaitWriteFinish: true,
-}).on("change", watchGoModels)
-    .once("ready", watchGoModels)
+function startWatchMode(): void {
+    watch("tygo.yaml", {
+        persistent: true,
+        awaitWriteFinish: true,
+    }).on("change", watchGoModels)
+        .once("ready", watchGoModels)
+
+    console.log("Starting in watch mode...")
+    console.log("Usage: deno run -A go2ts.ts [file.go]  - to generate for specific file")
+    console.log("       deno run -A go2ts.ts            - to start watch mode")
+}
+
+async function main(): Promise<void> {
+    const args = process.argv.slice(2)
+
+    if (args.length > 0) {
+        const filePath = args[0]
+        await generateForFile(filePath)
+    } else {
+        startWatchMode()
+    }
+}
+
+main()

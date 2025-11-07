@@ -27,7 +27,6 @@
                 "guard-for-in",
                 "no-const-assign",
                 "no-eval",
-                "no-external-import",
                 "no-import-prefix",
                 "no-inferrable-types",
                 "no-non-null-asserted-optional-chain",
