@@ -76,6 +76,8 @@
   variables that require complex logic and still use `const`
 - `Promise`s must be `await`ed or `.catch`ed to prevent unhandled rejections
 - Use `.catch` for promises that could provide fallback values
+- Use `.then` for promises to transform values when chaining is more readable
+  and prevent temporary variables
 - Don't rethrow errors without wrapping or logging them or have some sort of
   handling logic
 - When rethrowing errors, wrap them both in the `message` and the `cause` property
