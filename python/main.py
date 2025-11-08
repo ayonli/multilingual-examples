@@ -6,7 +6,11 @@ class Greeting:
         return f"Hello, {self.name}!"
 
 
-if __name__ == "__main__":
+def main():
     greeter = Greeting("World")
     text = greeter.say_hello()
     print(text)
+
+
+if __name__ == "__main__":
+    main()

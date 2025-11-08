@@ -6,11 +6,11 @@ import {
     run,
     writeStdoutSync,
 } from "@ayonli/jsext/cli"
-import { readFileAsText } from "@ayonli/jsext/fs"
-import { parse } from "@std/yaml"
-import { FSWatcher, watch } from "chokidar"
-import { dirname, extname, resolve } from "@ayonli/jsext/path"
+import { readFileAsText, remove, writeFile } from "@ayonli/jsext/fs"
+import { dirname } from "@ayonli/jsext/path"
+import { watch } from "chokidar"
 import process from "node:process"
+import { getWatchPaths } from "./2ts"
 
 const getGoModName: () => Promise<string> = once(async () => {
     const content = await readFileAsText("go.mod")
@@ -21,96 +21,72 @@ const getGoModName: () => Promise<string> = once(async () => {
     return match[1]
 })
 
-async function getTygoPaths(): Promise<string[]> {
-    const goMod = await getGoModName()
-    const content = await readFileAsText("tygo.yaml")
-    const { packages } = parse(content) as {
-        packages: {
-            path: string
-        }[]
-    }
+async function generate(dir: string): Promise<void> {
+    const modName = await getGoModName()
+    const tempYaml = `
+packages:
+    - path: "${modName}/${dir}"
+    `
+    const cfgFile = "/tmp/tygo_temp.yaml"
+    await writeFile(cfgFile, tempYaml)
 
-    return packages.map((pkg) => pkg.path.slice(goMod.length + 1))
+    try {
+        const { code, stderr } = await run("tygo", ["generate", "--config", cfgFile])
+        if (code) {
+            console.error("Error generating TypeScript definitions from Go models:", stderr)
+        } else {
+            const dest = dir + "/index.ts"
+            console.log("Successfully generated TypeScript to:", dest)
+        }
+    } finally {
+        await remove(cfgFile)
+    }
 }
 
-async function go2ts(path: string): Promise<void> {
+async function handleFileChange(path: string): Promise<void> {
     writeStdoutSync(ControlSequences.CLR_SCREEN)
     writeStdoutSync(NavigationKeys.HOME)
     writeStdoutSync(ControlKeys.LF)
     console.log(`Detected change in Go file: ${path}`)
 
-    const { code, stderr } = await run("tygo", ["generate"])
-    if (code) {
-        console.error("Error generating TypeScript definitions from Go models:", stderr)
-    } else {
-        const dest = dirname(path) + "/index.ts"
-        console.log("Successfully generated TypeScript to:", dest)
-    }
+    const dir = dirname(path)
+    await generate(dir)
 }
 
-async function generateForFile(filePath: string): Promise<void> {
-    const absPath = resolve(filePath)
-    
-    if (extname(absPath) !== ".go") {
-        console.error("Error: File must have .go extension")
-        process.exit(1)
-    }
-
-    console.log(`Generating TypeScript definitions for: ${absPath}`)
-
-    const { code, stderr } = await run("tygo", ["generate"])
-    if (code) {
-        console.error("Error generating TypeScript definitions from Go models:", stderr)
-        process.exit(1)
-    } else {
-        const dest = dirname(absPath) + "/index.ts"
-        console.log("Successfully generated TypeScript to:", dest)
-    }
-}
-
-let watcher: FSWatcher | undefined
-
-async function watchGoModels(): Promise<void> {
-    if (watcher) {
-        console.log("tygo.yaml changed, reloading watcher...")
-        await watcher.close()
-    }
-
-    const paths = await getTygoPaths()
-    watcher = watch(paths, {
+async function startWatchMode(): Promise<void> {
+    const paths = await getWatchPaths("go2ts")
+    const _watcher = watch(paths, {
         persistent: true,
         awaitWriteFinish: true,
         ignored: (path, stat) => {
             return !!stat?.isFile() && !path.endsWith(".go")
         },
-    }).on("change", go2ts)
-        .on("unlink", go2ts)
-        .on("unlinkDir", go2ts)
+    }).on("change", handleFileChange)
+        .on("unlink", handleFileChange)
+        .on("unlinkDir", handleFileChange)
         .once("ready", () => {
             console.log("Watching Go model files for changes...")
         })
-}
-
-function startWatchMode(): void {
-    watch("tygo.yaml", {
-        persistent: true,
-        awaitWriteFinish: true,
-    }).on("change", watchGoModels)
-        .once("ready", watchGoModels)
 
     console.log("Starting in watch mode...")
-    console.log("Usage: deno run -A go2ts.ts [file.go]  - to generate for specific file")
-    console.log("       deno run -A go2ts.ts            - to start watch mode")
+}
+
+function printUsage(): void {
+    console.log("Usage:")
+    console.log("  go2ts <dir>         - Generate TypeScript definitions for the given directory")
+    console.log("  go2ts --watch       - Start watch mode")
 }
 
 async function main(): Promise<void> {
     const args = process.argv.slice(2)
+    const firstArg = args.at(0)
 
-    if (args.length > 0) {
-        const filePath = args[0]
-        await generateForFile(filePath)
-    } else {
+    if (!firstArg || firstArg === "--help" || firstArg === "-h") {
+        printUsage()
+    } else if (firstArg === "--watch" || firstArg === "-w") {
         startWatchMode()
+    } else {
+        await generate(firstArg)
     }
 }
 

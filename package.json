@@ -9,7 +9,8 @@
         "sanitize:go": "golangci-lint run --fix && golangci-lint fmt",
         "sanitize:ts": "deno lint --fix  && deno fmt && tsc --noEmit",
         "sanitize:py": "ruff check --fix && ruff format && pyrefly check",
-        "go2ts": "tsx go2ts.ts"
+        "go2ts": "tsx go2ts.ts",
+        "py2ts": "tsx py2ts.ts"
     },
     "dependencies": {
         "@ayonli/jsext": "^1.9.0",
@@ -20,13 +21,19 @@
         "tslib": "^2.8.1"
     },
     "devDependencies": {
-        "@std/yaml": "npm:@jsr/std__yaml@^1.0.10",
         "@types/node": "^24.2.0",
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",
+        "json-schema-to-typescript": "^15.0.4",
         "tsx": "^4.20.6",
         "typescript": "^5.9.3",
         "vite": "^7.1.12",
         "vite-tsconfig-paths": "^5.1.4"
+    },
+    "go2ts": {
+        "paths": ["./go/models"]
+    },
+    "py2ts": {
+        "paths": ["./python/models"]
     }
 }

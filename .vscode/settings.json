@@ -9,90 +9,35 @@
         "fmt",
         "--stdin"
     ],
-    "customLocalFormatters.formatters": [
-        {
-            "command": "deno fmt -",
-            "languages": [
-                "typescript",
-                "javascript"
-            ]
-        },
-        {
-            "command": "deno fmt --ext=tsx -",
-            "languages": [
-                "typescriptreact",
-                "javascriptreact"
-            ]
-        },
-        {
-            "command": "deno fmt --ext=jsonc -",
-            "languages": [
-                "jsonc",
-                "json"
-            ]
-        },
-        {
-            "command": "deno fmt --ext=yaml -",
-            "languages": [
-                "yaml",
-                "yml"
-            ]
-        },
-        {
-            "command": "deno fmt --ext=md -",
-            "languages": [
-                "markdown"
-            ]
-        },
-        {
-            "command": "deno fmt --ext=html -",
-            "languages": [
-                "html"
-            ]
-        },
-        {
-            "command": "deno fmt --ext=scss -",
-            "languages": [
-                "scss",
-                "css"
-            ]
-        },
-        {
-            "command": "deno fmt --ext=less -",
-            "languages": [
-                "less"
-            ]
-        }
-    ],
     "[javascript]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[json]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[yaml]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[markdown]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[html]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[css]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[scss]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
+        "editor.defaultFormatter": "ayonli.deno-tools"
     },
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff"

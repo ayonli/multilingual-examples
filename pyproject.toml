@@ -1,0 +1,14 @@
+[project]
+name = "multilingual-examples"
+version = "0.1.0"
+description = "Multilingual examples with TypeScript, Python, and Go"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.12.4"]
+
+[dependency-groups]
+dev = [
+    "pydantic-to-typescript>=2.0.0",
+    "pyrefly>=0.40.1",
+    "ruff>=0.14.4",
+]
