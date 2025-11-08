@@ -1,7 +1,8 @@
 # TypeScript/JavaScript Coding Instructions
 
-**Variables** 
+## Variables
 
+- Use descriptive variable names that clearly indicate their purpose
 - Use `const` and `let` when possible and prefer const, never use `var`
 - Unused parameters should be prefixed with `_` to indicate intentional omission
   but still keep the parameter for function signature compatibility
@@ -12,19 +13,18 @@
 - When using Drizzle ORM, define table fields with snake_case to match database
   naming conventions
 
-**Functions**
+## Functions
 
-- Top level functions must be declared with `function` keyword; no arrow functions
-  for top level functions, no function declarations inside other functions
-- Functions should have explicit return types except for those that are defined and
-  used in another function
+- Use `function` keyword to declare top-level function, avoid arrow functions
+- Functions should have explicit return types except for those that can be easily inferred
+  and are defined and used in another function
 - Functions should not have more than 4 parameters, consider using an options
   object if more are needed
 - Function signatures should not take object literal types, always declare proper
   interfaces or types for object parameters, and export them if the function is
   exported; these type declarations should be colocated with the function
 
-**Types**
+## Types
 
 - Prefer using `interface` for object shapes, use `type` for unions, intersections,
   and utility types
@@ -35,16 +35,16 @@
 - Prefer type guards and narrowing over type assertions
 - Prefer type inference over explicit types when obvious, but not for functions
   and module exports
+- Prefer using generic types for function parameters instead of super-classes or
+  interfaces, the generic type should have bound constraints when necessary
 - Prefer using **zod** to define DTOs and infer types from zod schemas, the
   schema should share the same name as the inferred type and should be capitalized;
   the name shall not have suffixes like `Schema`, `Model`, `Type` or `Dto`, just
   a pure type name, e.g., `User`, `CreateUserData`, etc.
-- Prefer using generic types for function parameters instead of super-classes or
-  interfaces, the generic type should have bound constraints when necessary
 - Define extended error classes instead of using plain `Error` for better error
   handling and identification
 
-**Modules**
+## Modules
 
 - Exported module members should have explicit types
 - Prefer static imports, only use dynamic imports to load modules conditionally
@@ -58,16 +58,7 @@
   and relative modules, with a blank line in between and order them
   alphabetically in each group
 
-**Libraries**
-
-- Prefer using `@ayonli/jsext` for common utility functions
-- Prefer using `@ayonli/react-hooks` for common React hooks
-- Prefer using Hono for building web servers and APIs
-- Prefer using Drizzle ORM for database interactions
-- Prefer using Zod for data validation and parsing
-- Prefer using React for building user interfaces
-
-**Control Flows**
+## Control Flows
 
 - Prefer adding curly braces for switch cases
 - Prefer using early returns to reduce nesting
@@ -87,7 +78,7 @@
   `AbortSignal` when applicable
 - Check exhaustiveness in switch and conditional statements when possible
 
-**Safety**
+## Safety
 
 - Avoid using deprecated or discouraged language features, APIs and libraries
 - Prefer using `Array.prototype.at` for safe array element access, only use
@@ -102,7 +93,7 @@
 - Always try to write safe and secure code, learn and practice secure coding
   from Rust and other memory-safe languages
 
-**Simplicity**
+## Simplicity
 
 - Naming conventions:
   - PascalCase for types
@@ -118,7 +109,7 @@
 - Don't write too many comments, let the code speak for itself, only add comments
   for complex logic, important decisions, and public APIs
 
-**Abstractions**
+## Abstraction
 
 - Extract repeated code into reusable functions or modules when possible
 - Avoid over-engineering and premature abstractions, keep things simple and
@@ -136,7 +127,7 @@
 - Construct business logic like we're writing libraries, try to avoid framework
   or environment lock-in
 
-**Modernization**
+## Modernization
 
 - Prefer using built-in methods and language features over external libraries
 - Prefer using modern ECMAScript standards and features, avoid host-specific APIs
@@ -145,7 +136,7 @@
 - If targeting Node.js v22+ or Deno, prefer iterator helper methods over array
   counterparts (e.g., `map`, `filter`, `reduce`, etc.)
 
-**Workflows**
+## Workflow
 
 - Ask for clarification when requirements are ambiguous or incomplete
 - Write unit tests for critical and complex logic, but first try to break down
