@@ -1,8 +1,15 @@
+from typing import Literal
+
 from pydantic import BaseModel
 
 
 class User(BaseModel):
-    id: int
-    name: str
     email: str
-    is_active: bool = True
+    name: str
+    gender: Literal[0] | Literal[1]
+    age: int
+    birthday: str
+    country: str
+    province: str
+    city: str
+    detailed_address: str
