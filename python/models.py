@@ -13,3 +13,8 @@ class User(BaseModel):
     province: str
     city: str
     detailed_address: str
+
+
+class Author(User):
+    biography: str
+    publisher: str
