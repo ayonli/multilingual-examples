@@ -2,10 +2,11 @@
 
 ## Variables
 
-- Use descriptive variable names that clearly indicate their purpose
+- Use descriptive variable names that clearly indicate their purpose, but keep
+  the name short
+- Don't declare multiple variables on the same line, always declare each variable
+  on a new line
 - Use `const` and `let` when possible and prefer const, never use `var`
-- Unused parameters should be prefixed with `_` to indicate intentional omission
-  but still keep the parameter for function signature compatibility
 - Prefix the element name with `_` when destructuring unused tuple elements
   instead of leaving a blank slot
 - Use `_0`, `_1`, etc. for unused prefixes in array destructuring when multiple
@@ -20,6 +21,8 @@
   and are defined and used in another function
 - Functions should not have more than 4 parameters, consider using an options
   object if more are needed
+- Unused parameters should be prefixed with `_` to indicate intentional omission
+  but still keep the parameter for function signature compatibility
 - Function signatures should not take object literal types, always declare proper
   interfaces or types for object parameters, and export them if the function is
   exported; these type declarations should be colocated with the function
@@ -61,7 +64,7 @@
 ## Control Flows
 
 - Prefer adding curly braces for switch cases
-- Prefer using early returns to reduce nesting
+- Prefer using early returns to reduce nesting and indentation
 - Prefer using ternary operator for simple conditional assignments
 - Prefer using a IIFE (Immediately Invoked Function Expression) for initializing
   variables that require complex logic and still use `const`
@@ -80,7 +83,7 @@
 
 ## Safety
 
-- Avoid using deprecated or discouraged language features, APIs and libraries
+- Avoid using deprecated or discouraged language features, APIs or libraries
 - Prefer using `Array.prototype.at` for safe array element access, only use
   direct indexing when the length is checked beforehand
 - Prefer regular expression literals over `new RegExp` for both safety, simplicity
