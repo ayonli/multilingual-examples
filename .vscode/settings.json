@@ -44,5 +44,7 @@
     },
     "cSpell.words": [
         "tstype"
-    ]
+    ],
+    "python.languageServer": "None",
+    "ruff.interpreter": ["python3.12"]
 }
